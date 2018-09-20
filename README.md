@@ -15,3 +15,4 @@ _*Your algorithm should have O(n) complexity.*_
 
 ### Write your code in `src/index.js`
 ### Run test locally `npm test`
+# rsschool-profile
