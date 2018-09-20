@@ -12,7 +12,7 @@ module.exports=function longestConsecutiveLength(array) {
    	    	result[1]=i;
    	    	return result;
    	    }
-   
+   return result;
    }
    var result=0;
    var lcl=0;
