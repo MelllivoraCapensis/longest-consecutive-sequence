@@ -1,44 +1,74 @@
-module.exports=function longestConsecutiveLength(array) {
-  function has_elem(array,left,right)
+module.exports=function longestConsecutiveLength(arr)
+{
+function sequence(){
+  this.content=[];
+  this.count=0;
+}
+function element(){
+  this.numb=0;
+  this.parent=null;
+}
+function arr_max(arr){
+  var res=arr[0];
+  for (var i in arr) {
+    if(arr[i]>res)
+      res=arr[i];
+  }
+  return res;
+}
+function arr_min(arr){
+  var res=arr[0];
+  for (var i in arr) {
+    if(arr[i]<res)
+      res=arr[i];
+  }
+  return res;
+}
+var max_val=arr_max(arr);
+var min_val=arr_min(arr);
+var new_arr=[];
+var max_len=0;
+for (var i in arr) {
+  elem=new element();
+  elem.numb=arr[i];
+  var left=new_arr[arr[i]-1];
+  var right=new_arr[arr[i]+1];
+  if(new_arr[arr[i]])
+    continue;
+  else
+  new_arr[arr[i]]=elem;
+ if(left&&right)
+  {
+    var parent=left.parent;
+    elem.parent=parent;
+    var last_elem=right.parent.content[right.parent.content.length-1];
+    parent.count=parent.count+last_elem.parent.count+1;
+    last_elem.parent=parent;
+    parent.content.push(last_elem);
+  }
+ else if (left)
+ { 
+    var parent=left.parent;
+    elem.parent=parent;
+    parent.count++;
+    parent.content.push(elem);
+  }
+ else if (right) 
+ {
+    var parent=right.parent;
+    elem.parent=parent;
+    parent.count++;
+    parent.content.unshift(elem);
+  }
+   else
    {
-    var result=[-1,-1];
-    for(var i=0;i<array.length;i++) 
-        if(array[i]===left)
-        {
-          result[0]=i;
-          return result;
-        }
-        else if (array[i]===right) {
-          result[1]=i;
-          return result;
-        }
-    return result;
-   }
-   var result=0;
-   var lcl=0;
-   while(array.length>0) {
-    var neighb_left=array[0]-1;
-    var neighb_right=array[0]+1;
-    array.splice(0,1);
-    var lcl=1;
-    var pos=has_elem(array,neighb_left,neighb_right);
-    while(pos[0]>=0||pos[1]>=0)
-    {
-      lcl++;
-      if(pos[0]>=0)
-      {
-        array.splice(pos[0],1);
-        neighb_left--;
-        }
-        else
-        {
-        array.splice(pos[1],1);
-        neighb_right++;
-        }
-
-       pos=has_elem(array,neighb_left,neighb_right);
-    }
-   result=Math.max(result,lcl);
-     }
-return result;
+    var parent=new sequence();
+    new_arr[arr[i]]=elem;
+    elem.parent=parent;
+    parent.count++;
+    parent.content.push(elem);
+  }
+max_len=Math.max(max_len,parent.count);
+}
+return max_len;
 }
