@@ -8,24 +8,6 @@ function element(){
   this.numb=0;
   this.parent=null;
 }
-function arr_max(arr){
-  var res=arr[0];
-  for (var i in arr) {
-    if(arr[i]>res)
-      res=arr[i];
-  }
-  return res;
-}
-function arr_min(arr){
-  var res=arr[0];
-  for (var i in arr) {
-    if(arr[i]<res)
-      res=arr[i];
-  }
-  return res;
-}
-var max_val=arr_max(arr);
-var min_val=arr_min(arr);
 var new_arr=[];
 var max_len=0;
 for (var i in arr) {
